@@ -1,0 +1,191 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: 'Inconsolata', monospace;}
+body{
+	height: 100vh;
+	overflow: hidden;
+	background: #111;
+}
+.app{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* controler */
+
+.app_controler{
+	width: 70%;
+	height: 80%;
+	position: relative
+}
+.app_controler_start{
+	position: absolute;
+	top: 10%;
+	left: 50%;
+	transform: translate(-50%, 0);
+	height: 10rem;
+	width: 50%;
+	background: #777;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	font-size: 4rem;
+	cursor: pointer
+}
+.app_controler_dificulity{
+	width: 30%;
+	height: 10rem;
+	position: absolute;
+	top: 55%;
+	left: 10%;
+	background: #555;
+	font-size: 2.5rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer
+}
+.app_controler_dificulity p {
+	padding: 0.5rem;
+}
+.app_controler_map{
+	width: 30%;
+	height: 10rem;
+	position: absolute;
+	top: 55%;
+	right: 10%;
+	background: #555;
+	font-size: 2.5rem;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+.app_controler_map-chosse{
+	position: absolute;
+	right: -20%;
+	width: 25%;
+	height: 100%;
+	background: #444;
+	overflow: scroll;
+}
+.app_controler_map-chosse_item{
+	display: block;
+	margin: 0 auto;
+	margin-top: 1rem;
+	width: 90%;
+	height: 10rem;
+	background: #000;
+	cursor: pointer
+}
+
+
+/* playground */
+
+.app_playground{
+    /* background: #999; */
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+.app_playground_row{
+}
+.app_playground_col{
+	display: inline-block;
+	width: 2.4rem;
+	height: 2.4rem;
+	position: relative;
+}
+.object{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	display: block
+}
+.object1{
+	/* background: #999; */
+}
+.object2{
+	width: 20%;
+	height: 20%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: yellow;
+	border-radius: 100%;
+}
+.object4{
+	width: 30%;
+	height: 30%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: yellow;
+	border-radius: 100%;
+}
+.object3{
+	width: 90%;
+	height: 90%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 15%;
+	background: skyblue;
+}
+.pacman{
+	position: absolute;
+	width: 90%;
+	height: 90%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 100%;
+	background: #ffeb3bf7;
+	transition: 0.1s;
+}
+.enemy{
+	position: absolute;
+	width: 90%;
+	height: 90%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 100%;
+	transition: 0.1s;
+}
+
+.app_gameover{
+	width: 25rem;
+	height: 20rem;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 4px;
+	transition: 0.1s;
+	background: skyblue;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center
+}
+.app_gameover_score{
+	font-size: 3rem;
+	margin: 2rem 0;
+}
+.app_gameover_replay{
+	font-size: 2rem;
+	padding: 0.5rem;
+	border: 2px solid #111;
+	border-radius: 5px;
+	transition: 0.3s;
+	cursor: pointer
+}
+.app_gameover_replay:hover{
+	transform: scale(1.05)
+}

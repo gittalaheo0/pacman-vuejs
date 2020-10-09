@@ -1,0 +1,54 @@
+.fade-start-enter{
+	opacity: 0;
+	transform: translate(-50%, -100rem);
+}
+.fade-start-enter-active{
+	transition: all 0.2s;
+}
+.fade-start-leave-active{
+	transition: all 0.2s;
+}
+.fade-start-leave-to{
+	transform: translate(-50%, -100rem);
+	opacity: 0;
+}
+
+
+.fade-mapopen-enter, .fade-mapopen-leave-to{
+	opacity: 0;
+	transform: translate(-1rem, 0);
+}
+.fade-mapopen-enter-active, .fade-mapopen-leave-active{
+	transition: all 0.2s;
+}
+
+.fade-difficulity-enter, .fade-difficulity-leave-to{
+	opacity: 0;
+	transform: translate(1rem, 0);
+}
+.fade-difficulity-enter-active, .fade-difficulity-leave-active{
+	transition: all 0.2s;
+}
+
+.fade-map-item-enter, .fade-map-item-leave-to{
+	opacity: 0;
+	transform: translate(100%, 0);
+}
+.fade-map-item-enter-active, .fade-map-item-leave-active{
+	transition: all 0.2s;
+}
+
+.fade-playground-enter{
+	opacity: 0;
+	transform: translate(0, -100%);
+}
+.fade-playground-enter-active{
+	transition: all 0.1s;
+}
+.fade-playground-leave-active{
+	transition: all 0.1s;
+}
+.fade-playground-leave-to{
+	transform: translate(0, -100%);
+}
+

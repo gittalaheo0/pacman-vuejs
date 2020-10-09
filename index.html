@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>PACMAN</title>
+	<link rel="stylesheet" href="transition.css">
+	<link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div id="app" class="app">
+		<div class="app_controler" v-if="!gameIsRunning">
+			<transition name="fade-start" appear>
+				<div class="app_controler_start"
+					 @click="gameInit()"
+				>START</div>				
+			</transition>
+			<transition name="fade-difficulity" appear>
+				<div class="app_controler_dificulity"
+					 @click="changeDifficulity()"
+				>
+					<p>DIFICULITY</p>		
+					<p>{{ctrl.difficulity}}</p>
+				</div>
+			</transition>
+			<transition name="fade-mapopen" appear>
+				<div class="app_controler_map"
+					 @click="ctrl.map.show=!ctrl.map.show"
+				>MAP</div>
+			</transition>
+			<transition name="fade-map-item" appear>
+				<div class="app_controler_map-chosse" v-if="ctrl.map.show">
+					<div class="app_controler_map-chosse_item"
+						 v-for="item in ctrl.map.item"
+						 @click="changeMap(item)"
+					></div>
+				</div>
+			</transition>
+		</div>
+		<transition name="fade-playground" appear>
+			<div class="app_playground" v-if="gameIsRunning">
+				<div class="app_playground_row"
+					 v-for="(row,i) in ctrl.currentMap">
+					<div class="app_playground_col"
+  						 v-for="(col,j) in row">
+						<span class="object object1" v-if="col == 0"></span>
+						<span class="object object2" v-if="col == 1"></span>
+						<span class="object object3" v-if="col == 2"></span>
+						<span class="object object4" v-if="col == 3"></span>
+						<span class="pacman"
+							  v-if="pacman.x==j&&pacman.y==i"
+							  :style="{background: pacman.killedMode ? 'red' : 'yellow'}"
+						></span>
+						<img class="enemy"
+							 src="./ghost.png" 
+							 v-if="showEnemy(j,i)"
+							 :style="{opacity: pacman.killedMode ? 0.6 : 1}"
+						></img>
+					</div>
+				</div>
+			</div>
+		</transition>
+		<transition name="fade-mapopen">
+			<div class="app_gameover" v-if="pacmanDie">
+				<div class="app_gameover_score" >Score: {{score}}</div>
+				<div class="app_gameover_replay" @click="gameIsRunning=!gameIsRunning">Play again</div>
+			</div>
+		</transition>
+	</div>
+<script src="./node_modules/vue/dist/vue.min.js"></script>
+<script src="index.js"></script>
+</body>
+</html>
