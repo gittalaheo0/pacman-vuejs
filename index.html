@@ -34,7 +34,9 @@
 					<div class="app_controler_map-chosse_item"
 						 v-for="item in ctrl.map.item"
 						 @click="changeMap(item)"
-					></div>
+					>
+					<p>{{item.name}}</p>
+					</div>
 				</div>
 			</transition>
 		</div>
@@ -68,7 +70,8 @@
 			</div>
 		</transition>
 	</div>
-<script src="./node_modules/vue/dist/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
 <script src="index.js"></script>
 </body>
 </html>

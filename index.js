@@ -26,7 +26,7 @@ const game = new Vue({
 				random: true,
 				item: [
 					{
-						id: 1,
+						name: "blank",
 						detail: [
 						 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
 						 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
@@ -43,24 +43,24 @@ const game = new Vue({
 						],
 					},
 					{
-						id: 2,
+						name: "map2",
 						detail: [
-						 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
-						 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
-						 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
-						 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
+						 [0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
+						 [0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
 						 [0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
-						 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
-						 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
-						 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
-						 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
-						 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
+						 [0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
+						 [0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
+						 [0,2,0,0,0,2	,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
+						 [0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
+						 [0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
+						 [0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
+						 [0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
 						 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
 						 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
 						],
 					},
 					{
-						id: 3,
+						name: "map3",
 						detail: [
 						 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
 						 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
@@ -81,7 +81,6 @@ const game = new Vue({
 			difficulity: "easy", //hard, normal
 
 		},
-		playground: [], // 2 side array
 		pacman: {
 			x: null,
 			y: null,
@@ -190,8 +189,6 @@ const game = new Vue({
 							this.pacman.trend = null // pacman stop
 						}else if(this.pacman.y==this.ctrl.currentMap.length-1 && this.ctrl.currentMap[0][this.pacman.x]!=2){ // if pacman hit the corner with no wall
 							this.pacman.y = 0;
-
-			let checkAround
 						}else if(this.ctrl.currentMap[this.pacman.y+1][this.pacman.x]==2){ // if pacman hit the wall
 							this.pacman.trend = null // pacman stop
 						}else{ // if pacman dont hit anything
@@ -331,29 +328,14 @@ const game = new Vue({
 			}
 		},
 		enemyImpactChecking(item){
-			let checkImpact = (item) => {
-				let isImpact = {x: false, y:false}
-				if(item.x==this.pacman.x || item.x-1==this.pacman.x || item.x+1==this.pacman.x) {isImpact.x=true}
-				if(item.x==this.pacman.y || item.y-1==this.pacman.y || item.y+1==this.pacman.y) {isImpact.y=true}
-				return isImpact
-			}
-			// if(item.x==this.pacman.x && item.y==this.pacman.y){ //pacman hit enemy
-			// 	if(this.pacman.killedMode){ // if pacman is having killed mode
-			// 		this.deleteEnemy(item)
-			// 	}else{  // if pacman have no killed mode
-			// 		this.pacmanDie = true
-			// 	}
-			// }
-			if(item.x==this.pacman.x && item.y==this.pacman.y){ //pacman hit enemy
+			// if distance bettwen pacman and enemy equal 0
+			if((item.x==this.pacman.x+1 && item.y==this.pacman.y)||(item.x==this.pacman.x-1 && item.y==this.pacman.y)||(item.x==this.pacman.x && item.y==this.pacman.y+1)||(item.x==this.pacman.x && item.y==this.pacman.y-1)){ //pacman hit enemy
 				if(this.pacman.killedMode){ // if pacman is having killed mode
 					this.deleteEnemy(item)
 				}else{  // if pacman have no killed mode
 					this.pacmanDie = true
 				}
 			}
-			// if(checkImpact(item).x || checkImpact(item).y){
-			// 	this.deleteEnemy(item)
-			// }
 		},
 		deleteEnemy(item){
 			let deleteEnemy = this.enemy.find(e=>{return (e.x==item.x&&e.y==item.y)})
@@ -391,18 +373,18 @@ const game = new Vue({
 		pacmanDie(){
 			if(this.pacmanDie){
 				clearInterval(this.pacmanSetinterval)
-				clearInterval(this.enemySetinterval)
+				clearInterval(this.enemySetinterval);
 			}
 		},
 		gameIsRunning(){
 			if(!this.gameIsRunning){
-				this.pacmanDie = false;
-				this.score = 0;
+				// reset all
+				location.reload();
 			}
 		},
 		score(){
-			// score divide enough 30 >> create new enemy
-			if(this.score%20==0){
+			// score divide enough 25 >> create new enemy
+			if(this.score%25==0){
 				this.createNewEnemy()
 				this.score+=1
 			}
