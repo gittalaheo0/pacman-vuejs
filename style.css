@@ -62,10 +62,14 @@ body{
 	right: 10%;
 	background: #555;
 	font-size: 2.5rem;
-	display: grid;
+	display: flex;
 	justify-content: center;
+	flex-direction: column;
 	align-items: center;
 	cursor: pointer;
+}
+.app_controler_map p{
+	padding: 0.5rem;
 }
 .app_controler_map-chosse{
 	position: absolute;

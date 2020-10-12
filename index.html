@@ -27,7 +27,10 @@
 			<transition name="fade-mapopen" appear>
 				<div class="app_controler_map"
 					 @click="ctrl.map.show=!ctrl.map.show"
-				>MAP</div>
+				>
+				<p>MAP</p>
+				<p>{{ctrl.map.random ? 'random' : ctrl.map.name}}</p>
+			</div>
 			</transition>
 			<transition name="fade-map-item" appear>
 				<div class="app_controler_map-chosse" v-if="ctrl.map.show">

@@ -2,6 +2,7 @@ const game = new Vue({
 	el: "#app",
 	data: { 
 		pacmanSetinterval: null,
+		pacmanKilledModeSettimeout: null,
 		enemySetinterval: null,
 		gameIsRunning: false,
 		pacmanDie: false,
@@ -24,6 +25,7 @@ const game = new Vue({
 			map: {
 				show: false,
 				random: true,
+				name: '',
 				item: [
 					{
 						name: "blank",
@@ -117,8 +119,9 @@ const game = new Vue({
 		// change map
 		changeMap(item){
 			this.ctrl.currentMap = item.detail;
+			this.ctrl.map.name = item.name;
 			this.ctrl.map.random = false;
-
+			this.ctrl.map.show = false
 		},
 
 		// playground function
@@ -237,10 +240,17 @@ const game = new Vue({
 			this.ctrl.currentMap[this.pacman.y][this.pacman.x]=0; // clear food
 		},
 		activeKilledMode(){
-			this.pacman.killedMode = true;
-			setTimeout(function(){
-				this.pacman.killedMode = false
-			}.bind(this), this.timing+6000)
+			if(this.pacman.killedMode){ // if kiled mode is activating
+				clearTimeout(this.pacmanKilledModeSettimeout)
+				this.pacmanKilledModeSetinterval = setTimeout(function(){
+					this.pacman.killedMode = false
+				}.bind(this), this.timing+6000)				
+			}else{  // if kiled mode is not activating
+				this.pacman.killedMode = true;
+				this.pacmanKilledModeSettimeout = setTimeout(function(){
+					this.pacman.killedMode = false
+				}.bind(this), this.timing+6000)				
+			}
 		},
 
 		// enemy function
@@ -329,7 +339,7 @@ const game = new Vue({
 		},
 		enemyImpactChecking(item){
 			// if distance bettwen pacman and enemy equal 0
-			if((item.x==this.pacman.x+1 && item.y==this.pacman.y)||(item.x==this.pacman.x-1 && item.y==this.pacman.y)||(item.x==this.pacman.x && item.y==this.pacman.y+1)||(item.x==this.pacman.x && item.y==this.pacman.y-1)){ //pacman hit enemy
+			if((item.x==this.pacman.x && item.y==this.pacman.y)||(item.x==this.pacman.x+1 && item.y==this.pacman.y)||(item.x==this.pacman.x-1 && item.y==this.pacman.y)||(item.x==this.pacman.x && item.y==this.pacman.y+1)||(item.x==this.pacman.x && item.y==this.pacman.y-1)){ //pacman hit enemy
 				if(this.pacman.killedMode){ // if pacman is having killed mode
 					this.deleteEnemy(item)
 				}else{  // if pacman have no killed mode
