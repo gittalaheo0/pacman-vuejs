@@ -30,7 +30,8 @@ body{
 	transform: translate(-50%, 0);
 	height: 10rem;
 	width: 50%;
-	background: #777;
+	background: #3bffdb;
+	border-radius: 0.4rem;
 	display: grid;
 	justify-content: center;
 	align-items: center;
@@ -43,7 +44,8 @@ body{
 	position: absolute;
 	top: 55%;
 	left: 10%;
-	background: #555;
+	background: #3bffdb;
+	border-radius: 0.4rem;
 	font-size: 2.5rem;
 	display: flex;
 	flex-direction: column;
@@ -60,7 +62,8 @@ body{
 	position: absolute;
 	top: 55%;
 	right: 10%;
-	background: #555;
+	background: #3bffdb;
+	border-radius: 0.4rem;
 	font-size: 2.5rem;
 	display: flex;
 	justify-content: center;
@@ -76,8 +79,8 @@ body{
 	right: -20%;
 	width: 25%;
 	height: 100%;
-	background: #444;
 	overflow: scroll;
+	overflow-x: hidden;
 }
 .app_controler_map-chosse_item{
 	display: block;
@@ -85,7 +88,7 @@ body{
 	margin-top: 1rem;
 	width: 90%;
 	height: 10rem;
-	background: #000;
+	background: #87ceebc4;
 	cursor: pointer
 }
 .app_controler_map-chosse_item p{
@@ -96,6 +99,18 @@ body{
 	justify-content: center;
 	align-items: center;
 	font-size: 2rem;
+}
+.app_controler_map-chosse::-webkit-scrollbar {
+  width: 10px;
+}
+.app_controler_map-chosse::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+} 
+.app_controler_map-chosse::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+.app_controler_map-chosse::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }
 
 /* playground */
@@ -151,15 +166,52 @@ body{
 }
 .pacman{
 	position: absolute;
-	width: 90%;
-	height: 90%;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	border-radius: 100%;
-	background: #ffeb3bf7;
+	width: 100%;
+	height: 100%;
 	transition: 0.1s;
 }
+.pacman_body{
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: relative
+}
+.pacman-top{
+	display: block;
+	position: absolute;
+	bottom: 0%;
+	transform:  rotate(10deg);
+	width: 100%;
+	height: 50%;
+	background: #ffeb3b;
+	border-top-left-radius: 100px;
+	border-top-right-radius: 100px;
+	animation: top 0.2s linear alternate infinite;
+}
+.pacman-bottom{
+	display: block;
+	position: absolute;
+	top: 0%;
+	transform:  rotate(10deg);
+	width: 100%;
+	height: 50%;
+	background: #ffeb3b;
+	border-bottom-left-radius: 100px;
+	border-bottom-right-radius: 100px;
+	animation: bottom 0.2s linear alternate infinite;
+}
+@keyframes top{
+	0%{transform: rotate(180deg)}
+	100%{transform: rotate(160deg)}
+}
+
+@keyframes bottom{
+	0%{transform: rotate(-180deg)}
+	100%{transform: rotate(-160deg)}
+}
+
+
+
 .enemy{
 	position: absolute;
 	width: 90%;

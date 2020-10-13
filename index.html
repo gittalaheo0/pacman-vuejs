@@ -55,8 +55,13 @@
 						<span class="object object4" v-if="col == 3"></span>
 						<span class="pacman"
 							  v-if="pacman.x==j&&pacman.y==i"
-							  :style="{background: pacman.killedMode ? 'red' : 'yellow'}"
-						></span>
+							  v-pacman
+						>
+ 							<span class="pacman_body">
+								<span class="pacman-top"></span>
+								<span class="pacman-bottom"></span>								
+							</span>
+						</span>
 						<img class="enemy"
 							 src="./ghost.png" 
 							 v-if="showEnemy(j,i)"
@@ -73,8 +78,7 @@
 			</div>
 		</transition>
 	</div>
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
+<script src="node_modules/vue/dist/vue.min.js"></script>
 <script src="index.js"></script>
 </body>
 </html>

@@ -400,6 +400,22 @@ const game = new Vue({
 			}
 		},
 	},
+	directives: {
+	  pacman: {
+	    inserted: function (el) {
+	    	// for(let e of el.children[0].children){e.style.animationDuration = this.timing*0.001 + "s"}
+	    	
+	    	console.log(el.children[0].children);
+	    	if(game.pacman.trend == "up"){
+	      		el.style.transform = "rotate(90deg)"
+	    	}else if(game.pacman.trend == "right"){
+	      		el.style.transform = "rotate(180deg)"
+	    	}else if(game.pacman.trend == "down"){
+	      		el.style.transform = "rotate(-90deg)"
+	    	}
+	    }
+	  }
+	}
 })
 
 document.onkeyup = function (event) {
