@@ -1,9 +1,11 @@
 const game = new Vue({
 	el: "#app",
 	data: { 
+		// set time variable
 		pacmanSetinterval: null,
 		pacmanKilledModeSettimeout: null,
 		enemySetinterval: null,
+		// process in game
 		gameIsRunning: false,
 		pacmanDie: false,
 		score: 0,
@@ -89,7 +91,7 @@ const game = new Vue({
 			mode: "",
 			trend: null,
 			killedMode: false,
-			killedModeTime: 6000,
+			killedModeTime: 5000,
 		},
 		enemy:[  // 4 enemy when start
 			{x: null, y: null},
@@ -98,10 +100,7 @@ const game = new Vue({
 			{x: null, y: null},
 		],
 		timing: 280, // speed game run (milisecond)
-		timeCounter: 0, // speed game run (milisecond)
-
-	},
-	created: function () {
+		timeCounter: 0, // the time game run (milisecond)
 	},
 	methods:{
 		// common function for all object
@@ -131,6 +130,7 @@ const game = new Vue({
 			// create map if random map selected
 			let hardIndex = 0.8; // closer to 0 , create more wall
 			// change hardIndex
+			
 			switch (this.ctrl.difficulity) {
 				case "normal":
 					hardIndex = 0.75;
@@ -232,13 +232,11 @@ const game = new Vue({
 		pacmanEat(){
 			if(this.ctrl.currentMap[this.pacman.y][this.pacman.x]==1){
 				this.score++;
-				console.log(this.score);
 			}
 			if(this.ctrl.currentMap[this.pacman.y][this.pacman.x]==3){
 				this.score++;
 				// set time for killed mode
 				this.activeKilledMode()
-				console.log(this.score);
 			}
 			this.ctrl.currentMap[this.pacman.y][this.pacman.x]=0; // clear food
 		},
@@ -266,7 +264,6 @@ const game = new Vue({
 				console.log(ghost.x, ghost.y);
 				this.ctrl.currentMap[ghost.y][ghost.x] = 1
 			}.bind(this));
-
 		},
 		createNewEnemy(){
 			let newEnemy = {x: null, y: null};

@@ -75,9 +75,12 @@
 		</transition>
 		<transition name="fade-mapopen">
 			<div class="app_gameover" v-if="pacmanDie">
-				<div class="app_gameover_score" >Score: {{score}}</div>
+				<div class="app_gameover_score" >Eat:{{score}}</div>
 				<div class="app_gameover_replay" @click="gameIsRunning=!gameIsRunning">Play again</div>
 			</div>
+		</transition>
+		<transition name="fade-mapopen">
+			<div v-if="gameIsRunning" class="app_score">{{score}}</div>
 		</transition>
 	</div>
 <script src="node_modules/vue/dist/vue.min.js"></script>

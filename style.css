@@ -258,3 +258,9 @@ body{
 .app_gameover_replay:hover{
 	transform: scale(1.05)
 }
+.app_score{
+	color: #fff;
+	position: absolute;
+	bottom: 2rem;
+	font-size: 2rem;
+}
