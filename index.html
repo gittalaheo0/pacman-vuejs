@@ -65,7 +65,9 @@
 						<img class="enemy"
 							 src="./ghost.png" 
 							 v-if="showEnemy(j,i)"
-							 :style="{opacity: pacman.killedMode ? 0.6 : 1}"
+							 :style="[{filter: pacman.killedMode ? 'invert(0.8)' : 'none'},
+							 		 {opacity: pacman.killedMode ? '0.7' : 1}
+							 ]"
 						></img>
 					</div>
 				</div>

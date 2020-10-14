@@ -52,7 +52,7 @@ const game = new Vue({
 						 [0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
 						 [0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
 						 [0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
-						 [0,2,0,0,0,2	,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
+						 [0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
 						 [0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
 						 [0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
 						 [0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 
@@ -89,6 +89,7 @@ const game = new Vue({
 			mode: "",
 			trend: null,
 			killedMode: false,
+			killedModeTime: 6000,
 		},
 		enemy:[  // 4 enemy when start
 			{x: null, y: null},
@@ -134,10 +135,12 @@ const game = new Vue({
 				case "normal":
 					hardIndex = 0.75;
 					this.timing = 200; // decrease the time run
+					this.pacman.killedModeTime-=1000 // decrease the killed mode active time
 					break;
 				case "hard":
 					hardIndex = 0.7
 					this.timing = 100; // decrease the time run
+					this.pacman.killedModeTime-=2000 // decrease the killed mode active time
 					break;
 			}
 			if(this.ctrl.map.random){
@@ -244,12 +247,12 @@ const game = new Vue({
 				clearTimeout(this.pacmanKilledModeSettimeout)
 				this.pacmanKilledModeSetinterval = setTimeout(function(){
 					this.pacman.killedMode = false
-				}.bind(this), this.timing+6000)				
+				}.bind(this), this.timing+this.pacman.killedModeTime)				
 			}else{  // if kiled mode is not activating
 				this.pacman.killedMode = true;
 				this.pacmanKilledModeSettimeout = setTimeout(function(){
 					this.pacman.killedMode = false
-				}.bind(this), this.timing+6000)				
+				}.bind(this), this.timing+this.pacman.killedModeTime)				
 			}
 		},
 
@@ -257,9 +260,10 @@ const game = new Vue({
 		createEnemyDistance(){
 			this.enemy.forEach(function(ghost) {
 				// random enemy distance
-				ghost.x = Math.round(Math.random()*this.ctrl.currentMap[0].length-2)
-				ghost.y = Math.round(Math.random()*this.ctrl.currentMap.length-2)
+				ghost.x = Math.round(Math.random()*(this.ctrl.currentMap[0].length-1))
+				ghost.y = Math.round(Math.random()*(this.ctrl.currentMap.length-1))
 				// clear wall
+				console.log(ghost.x, ghost.y);
 				this.ctrl.currentMap[ghost.y][ghost.x] = 1
 			}.bind(this));
 
@@ -267,8 +271,8 @@ const game = new Vue({
 		createNewEnemy(){
 			let newEnemy = {x: null, y: null};
 			//random location
-			newEnemy.x = Math.round(Math.random()*this.ctrl.currentMap[0].length-2);
-			newEnemy.y = Math.round(Math.random()*this.ctrl.currentMap.length-2);
+			newEnemy.x = Math.round(Math.random()*(this.ctrl.currentMap[0].length-1));
+			newEnemy.y = Math.round(Math.random()*(this.ctrl.currentMap.length-1));
 			// clear wall
 			this.ctrl.currentMap[newEnemy.y][newEnemy.x] = 0;
 			this.enemy.push(newEnemy)
@@ -372,11 +376,6 @@ const game = new Vue({
 					break;
 			}
 		},
-
-		// css for objects
-		randomColor(){
-			return `rgba(${Math.round(Math.random()*225)},${Math.round(Math.random()*225)},${Math.round(Math.random()*225)},${Math.random()})`
-		},
 	},
 
 	watch:{
@@ -403,9 +402,6 @@ const game = new Vue({
 	directives: {
 	  pacman: {
 	    inserted: function (el) {
-	    	// for(let e of el.children[0].children){e.style.animationDuration = this.timing*0.001 + "s"}
-	    	
-	    	console.log(el.children[0].children);
 	    	if(game.pacman.trend == "up"){
 	      		el.style.transform = "rotate(90deg)"
 	    	}else if(game.pacman.trend == "right"){
